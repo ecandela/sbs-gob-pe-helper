@@ -1,2 +1,2 @@
 call conda deactivate
-call conda env remove -n venvOsee
+call conda env remove -n sbs-helper
