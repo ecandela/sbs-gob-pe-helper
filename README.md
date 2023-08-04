@@ -1,16 +1,15 @@
 sbs-gob-pe-helper
 ==============================
 
-Nota : Revisa la [Nota legal](docs/README01.md) antes de utilizar la libreria
+Nota : Revisa la [Nota legal](docs/NotaLegal.md) antes de utilizar la libreria.
 
 
-**sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos del mercado desde la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/).
-
+**sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos de mercado desde la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/), mediante web scraping.
 
 → Revisa los siguientes notebook para ver ejemplos practicos:
 
-- [Cupon cero](sbs-gob-pe-helper/Cupon_cero.ipynb) 
-- [Vector de precios de renta fija](sbs-gob-pe-helper/VP_Renta_fija.ipynb) 
+- [Cupon cero](sbs_gob_pe_helper/Cupon_cero.ipynb) 
+- [Vector de precios de renta fija](sbs_gob_pe_helper/VP_Renta_fija.ipynb) 
 
 
 ---

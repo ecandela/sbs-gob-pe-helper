@@ -95,11 +95,11 @@ setup(
     version=VERSION,
     license=read("LICENSE", is_encoding=False, ignore_raises=True),
     packages=find_packages(),
-    description='sbs-gob-pe-helper de proyectos de analisis financiero',
+    description='sbs-gob-pe-helper para proyectos de análisis financiero',
     long_description=read("README.md"),
     long_description_content_type='text/markdown',
     author='Erik Carl Candela Rojas',
-    author_email='analitica.avanzada.talento@gmail.com',
+    author_email='erik.candela.rojas@gmail.com',
     
     download_url='https://URL_PAQUETE/sbs-gob-pe-helper/-/archive/master/sbs-gob-pe-helper-master.tar'.format(
         VERSION),
