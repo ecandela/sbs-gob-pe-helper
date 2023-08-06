@@ -108,7 +108,7 @@ df_vector.columns.tolist()
 df_vector.head()
 ```
 
-![Abrir Terminal](references/imagenes/vector.png)
+![Vector de precio](references/imagenes/vector.png)
 
 ---
 
