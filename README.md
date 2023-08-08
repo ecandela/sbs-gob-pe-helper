@@ -170,3 +170,14 @@ Si no se asigna un valor, entonces el filtro no se aplicará.
 |CP-1-|
 |CP-2|
 |CP-2+|
+
+---
+
+## Feedback
+
+La mejor manera de enviar comentarios es crear un problema en https://github.com/ecandela/sbs-gob-pe-helper/issues.
+Si estás proponiendo una característica:
+
+- Explica detalladamente cómo funcionaría.
+- Mantén el alcance lo más limitado posible para facilitar la implementación.
+- Recuerda que este es un proyecto impulsado por voluntarios y que las contribuciones son bienvenidas :)
