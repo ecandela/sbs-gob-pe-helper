@@ -4,10 +4,22 @@ sbs-gob-pe-helper
 Nota : Te recomendamos revisar la [Nota legal](docs/NotaLegal.md) antes de emplear la libreria.
 
 
-**sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos de mercado de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/), mediante web scraping.
+**sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos de mercado de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/), mediante web scraping (sbs web scraping).
 
 
----
+-----------------
+## Características 
+A continuación se encuentran las características que aborda este paquete. :
+- Curva cupón cero:
+  - Extracción de datos desde la SBS.
+  - Gráfica de curva.
+  - Interpolación lineal de la curva.
+- Vector de precio de renta fija:
+  - Extracción de datos desde la SBS.
+- Índice spread corporativo.
+  - Extracción de datos desde la SBS.
+
+---  
 
 ## Instalación
 
@@ -19,11 +31,34 @@ $ pip install sbs-gob-pe-helper
 
 ---
 
-## Quick Start
+# Quick Start
 
-### El modulo CuponCero 
+## El modulo CuponCero 
+
 
 El módulo `CuponCero` permite acceder a los datos de bonos cupón cero de la SBS de una manera más alineada a Python:
+
+## sbs_gob_pe_helper.CuponCero
+
+
+| Parametro | Descripción |
+| ------ | ------ |
+|fechaProceso| Fecha de procesamiento|
+|tipoCurva| Tipo de curva|
+
+| tipoCurva | Descripciòn |
+| ------ | ------ |
+| CBCRS |    Curva Cupon Cero CD BCRP|
+| CCSDF |   Curva Cupon Cero Dólares CP|
+| CSBCRD | Curva Cupon Cero Dólares Sintetica|
+| CCINFS | Curva Cupon Cero Inflacion Soles BCRP|
+| CCCLD | Curva Cupon Cero Libor Dolares|
+| CCPEDS | Curva Cupon Cero Peru Exterior Dolares - Soberana|
+| CCPSS | Curva Cupon Cero Peru Soles Soberana|
+| CCPVS | Curva Cupon Cero Peru Vac Soberana|
+
+
+### Ejemplo
 
 ```python
 import sbs_gob_pe_helper.CuponCero as cc
@@ -35,7 +70,10 @@ fec_proceso = '31/07/2023'
 df_cup= cc.get_curva_cupon_cero(tipoCurva=tp_curva, fechaProceso=fec_proceso)
 ```
 
-Si quieres obtener la frafica de la curva cupon cero, entonces:
+![cupon primeros 5 registros](references/imagenes/cupon_head.png)
+
+
+Si deseas visualizar la gráfica de la curva de cupón cero, sigue estos pasos:
 
 ```python
 cc.plot_curva(df_cup)
@@ -48,6 +86,10 @@ Para extrapolar tasas de interes de forma lineal entonces realizar esto:
 
 
 ```python
+
+#Si buscas obtener tasas para plazos no presentes en los datos de cupón cero, se llevará a cabo una interpolación utilizando los valores de plazos ya existentes.
+
+# En el siguiente ejemplo, se calcularán las tasas correspondientes para los períodos de 30, 60 y 120.
 data = {
     "dias": [0, 30, 60 , 90 , 120],    
 }
@@ -57,12 +99,68 @@ df_test = pd.DataFrame(data)
 
 df_test['tasas'] = df_test['dias'].apply(cc.get_tasa_interes_por_dias, args=(df_cup,))
 
+df_test.head()
+
 ```
 
-### El modulo VectorPrecioRentaFija 
+![Resultado de interpolación](references/imagenes/interpol.png)
+
+## El modulo VectorPrecioRentaFija 
 
 El módulo `VectorPrecioRentaFija` permite acceder a los datos de bonos cupón cero de la SBS de una manera más alineada a Python:
 
+## sbs_gob_pe_helper.VectorPrecioRentaFija
+
+
+| Parametro | Descripción |
+| ------ | ------ |
+|fechaProceso| Fecha de procesamiento|
+|cboEmisor| Emisor|
+|cboMoneda| Tipo de Moneda|
+|cboRating| Rating Emisión|
+
+
+| cboEmisor | Descripciòn |
+| ------ | ------ |
+|1000| GOB.CENTRAL|
+|2011| ALICORP S.A.|
+|0087| BANCO FALABELLA|
+|0088| BCO RIPLEY|
+|0001| BCRP|
+|0011| CONTINENTAL|
+|0042| CREDISCOTIA|
+|0003| INTERBANK|
+
+*Los emisores disponibles se encuentran en la siguiente página: https://www.sbs.gob.pe/app/pu/CCID/Paginas/vp_rentafija.aspx
+
+
+
+| cboMoneda | Descripciòn |
+| ------ | ------ |
+| 1 |   Soles|
+| 2 | Soles VAC|
+| 3 | Dolares|
+
+
+
+| cboRating | 
+| ------ | 
+|A|
+|A+|
+|A-|
+|AA|
+|AA+|
+|AA-|
+|AAA|
+|B-|
+|BB|
+|CP-1|
+|CP-1+|
+|CP-1-|
+|CP-2|
+|CP-2+|
+
+### Ejemplo
 ```python
 
 import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
@@ -112,64 +210,7 @@ df_vector.head()
 
 ---
 
-## Documentación
 
-### sbs_gob_pe_helper.VectorPrecioRentaFija
-
-
-| Parametro | Descripción |
-| ------ | ------ |
-|fechaProceso| Fecha de procesamiento|
-|cboEmisor| Emisor|
-|cboMoneda| Tipo de Moneda|
-|cboRating| Rating Emisión|
-
-
-#### cboEmisor
-Si no se asigna un valor, entonces el filtro no se aplicará.
-
-| cboEmisor | Descripciòn |
-| ------ | ------ |
-|1000| GOB.CENTRAL|
-|2011| ALICORP S.A.|
-|0087| BANCO FALABELLA|
-|0088| BCO RIPLEY|
-|0001| BCRP|
-|0011| CONTINENTAL|
-|0042| CREDISCOTIA|
-|0003| INTERBANK|
-
-Los emisores disponibles se encuentran en la siguiente página: https://www.sbs.gob.pe/app/pu/CCID/Paginas/vp_rentafija.aspx
-
-#### cboMoneda
-Si no se asigna un valor, entonces el filtro no se aplicará.
-
-| cboMoneda | Descripciòn |
-| ------ | ------ |
-| 1 |   Soles|
-| 2 | Soles VAC|
-| 3 | Dolares|
-
-
-#### cboRating
-Si no se asigna un valor, entonces el filtro no se aplicará.
-
-| cboRating | 
-| ------ | 
-|A|
-|A+|
-|A-|
-|AA|
-|AA+|
-|AA-|
-|AAA|
-|B-|
-|BB|
-|CP-1|
-|CP-1+|
-|CP-1-|
-|CP-2|
-|CP-2+|
 
 ---
 
