@@ -211,6 +211,47 @@ df_vector.head()
 ---
 
 
+## El modulo IndiceSpreadsCorporativo 
+
+
+El módulo `IndiceSpreadsCorporativo` permite acceder a los índices de spread  Índice spread corporativo de la SBS mediante Python:
+
+## sbs_gob_pe_helper.IndiceSpreadsCorporativo
+
+| Parametro | Descripción |
+| ------ | ------ |
+|fechaInicial| Fecha inicial|
+|fechaFinal| Fecha final|
+|tipoCurva| Tipo de curva|
+
+| tipoCurva | Descripciòn |
+| ------ | ------ |
+| CBCRS |    Curva Cupon Cero CD BCRP|
+| CCSDF |   Curva Cupon Cero Dólares CP|
+| CSBCRD | Curva Cupon Cero Dólares Sintetica|
+| CCINFS | Curva Cupon Cero Inflacion Soles BCRP|
+| CCCLD | Curva Cupon Cero Libor Dolares|
+| CCPEDS | Curva Cupon Cero Peru Exterior Dolares - Soberana|
+| CCPSS | Curva Cupon Cero Peru Soles Soberana|
+| CCPVS | Curva Cupon Cero Peru Vac Soberana|
+
+### Ejemplo
+```python
+
+import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
+
+import sbs_gob_pe_helper.IndiceSpreadsCorporativo as isc 
+tpCurva = 'CCPSS'
+fInicial = '04/08/2023'
+fFinal = '04/08/2023'
+
+#Obtiene el vector de precios de instrumentos de renta fija disponibles en la SBS para una fecha de proceso específica:
+df_isc = isc.get_indice_spreads_corporativo(tipoCurva=tpCurva,fechaInicial=fInicial, fechaFinal=fFinal)
+
+df_vector.head()
+```
+![IndiceSpreadsCorporativo](references/imagenes/indicecorp.png)
+
 
 ---
 
