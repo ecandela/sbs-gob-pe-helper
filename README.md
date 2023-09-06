@@ -13,7 +13,7 @@ Nota : Te recomendamos revisar la [Nota legal](docs/NotaLegal.md) antes de emple
 ## Características 
 A continuación se encuentran las características que aborda este paquete. 
 - Curva cupón cero:
-  - Extracción de datos desde la SBS.
+  - Extracción plazos y tasas de interés por tipo de curva de la SBS.
   - Gráfica de curva.
   - Interpolación lineal de la curva.
 - Vector de precio de renta fija:
@@ -41,7 +41,7 @@ $ pip install sbs-gob-pe-helper
 
 
 ### get_curva_cupon_cero
-La función `get_curva_cupon_cero` permite acceder a los datos de cupón cero de la SBS:
+La función `get_curva_cupon_cero` permite acceder a los datos de cupón cero de la SBS por tipo de curva y fecha de procesamiento:
 
 
 | Parametro | Descripción |
@@ -91,7 +91,7 @@ cc.plot_curva(df_cup)
 
 
 ### get_curva_cupon_cero_historico
-La función `get_curva_cupon_cero_historico` permite acceder a los datos de bonos cupón cero de la SBS a partir de un rango de fechas de procesamiento:
+La función `get_curva_cupon_cero_historico` permite acceder a los datos de cupón cero de la SBS a partir de un rango de fechas de procesamiento y tipo de curva:
 
 
 | Parametro | Descripción |
@@ -146,7 +146,7 @@ df_cup_hist_pivot.head()
 
 
 ### get_tasa_interes_por_dias
-La función `get_tasa_interes_por_dias` permite acceder a los datos de bonos cupón cero de la SBS:
+La función `get_tasa_interes_por_dias` permite acceder interpolación lineal de las tasas de interés de plazos no disponible en las curvas de cupón cero de la SBS :
 
 
 ```python
