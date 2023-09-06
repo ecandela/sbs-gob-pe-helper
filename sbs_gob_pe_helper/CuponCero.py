@@ -3,6 +3,59 @@ from bs4 import BeautifulSoup
 import pandas as pd 
 import numpy as np
 import plotly.graph_objects as go
+from io import BytesIO
+
+def get_curva_cupon_cero_historico(FechaInicio=None,FechaFin=None,TipoCurva=False):
+
+    URL = "https://www.sbs.gob.pe/app/pp/n_CurvaSoberana/ExportarListadoHistoricoCurvaSoberana" 
+
+
+    data = {
+                'FechaInicio': FechaInicio,
+                'FechaFin': FechaFin,                    
+                'TipoCurva': TipoCurva,                    
+            }
+    response = requests.post(URL, json=data)
+
+    if response.status_code == 200:
+
+         
+        excel_data = BytesIO(response.content)
+        
+        # Utilizar pandas para leer los datos del archivo Excel en memoria y convertirlo en un DataFrame
+        df = pd.read_excel(excel_data, engine='openpyxl')
+
+        df_nuevo = df.iloc[1:].reset_index(drop=True)
+        df_nuevo.columns = df.iloc[0]
+
+        return df_nuevo
+    
+
+def pivot_curva_cupon_cero_historico(df):
+
+    # Pivotar el DataFrame
+    pivot_df = df.pivot(index=["Fecha de Proceso", "Tipo de Curva"], columns="Plazo (DIAS)", values="Tasas (%)").reset_index()
+
+    # Renombrar las columnas
+    pivot_df.columns.name = None
+
+    non_numeric_columns = ["Fecha de Proceso", "Tipo de Curva"]
+
+    numeric_columns = [col for col in pivot_df.columns if col not in non_numeric_columns]
+    numeric_columns.sort(key=lambda x: int(x.split(' ')[0]))
+
+    new_columns_order = non_numeric_columns + numeric_columns
+    pivot_df = pivot_df[new_columns_order]
+
+    # Convertir las columnas a numéricas
+    pivot_df[numeric_columns] = pivot_df[numeric_columns].apply(pd.to_numeric, errors='coerce')
+
+
+    return pivot_df
+
+
+
+
 
 def get_curva_cupon_cero(tipoCurva=None,fechaProceso=None,tramoCorto=False):
 

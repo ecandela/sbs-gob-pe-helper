@@ -7,15 +7,19 @@ Nota : Te recomendamos revisar la [Nota legal](docs/NotaLegal.md) antes de emple
 **sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos de mercado de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/), mediante web scraping (sbs web scraping).
 
 
+**Ojo**: Es recomendable ejecutar esta librería en un entorno local. Se ha observado que en plataformas como Google Colab puede generar conflictos.
+
 -----------------
 ## Características 
-A continuación se encuentran las características que aborda este paquete. :
+A continuación se encuentran las características que aborda este paquete. 
 - Curva cupón cero:
   - Extracción de datos desde la SBS.
   - Gráfica de curva.
   - Interpolación lineal de la curva.
 - Vector de precio de renta fija:
-  - Extracción de datos desde la SBS.
+  - Extracción de datos de vector de precio por fecha de procesamiento desde la SBS.
+  - Extracción de emisores disponibles del vector de precio.
+  - Extracción de datos históricos de precios por ISIN.
 - Índice spread corporativo.
   - Extracción de datos desde la SBS.
 
@@ -36,9 +40,8 @@ $ pip install sbs-gob-pe-helper
 ## El modulo CuponCero 
 
 
-El módulo `CuponCero` permite acceder a los datos de bonos cupón cero de la SBS de una manera más alineada a Python:
-
-## sbs_gob_pe_helper.CuponCero
+### get_curva_cupon_cero
+La función `get_curva_cupon_cero` permite acceder a los datos de cupón cero de la SBS:
 
 
 | Parametro | Descripción |
@@ -68,9 +71,12 @@ fec_proceso = '31/07/2023'
 
 #obtiene todos los datos de la curva de cupon cero de un determinado fecha de proceso
 df_cup= cc.get_curva_cupon_cero(tipoCurva=tp_curva, fechaProceso=fec_proceso)
+df_cup.head()
 ```
 
 ![cupon primeros 5 registros](references/imagenes/cupon_head.png)
+
+### plot_curva
 
 
 Si deseas visualizar la gráfica de la curva de cupón cero, sigue estos pasos:
@@ -82,7 +88,65 @@ cc.plot_curva(df_cup)
 ![Abrir Terminal](references/imagenes/curva_c0.png)
 
 
-Para extrapolar tasas de interes de forma lineal entonces realizar esto:
+
+
+### get_curva_cupon_cero_historico
+La función `get_curva_cupon_cero_historico` permite acceder a los datos de bonos cupón cero de la SBS a partir de un rango de fechas de procesamiento:
+
+
+| Parametro | Descripción |
+| ------ | ------ |
+|FechaInicio| Fecha de procesamiento|
+|FechaFin| Tipo de curva|
+|TipoCurva| Tipo de curva|
+
+| tipoCurva | Descripciòn |
+| ------ | ------ |
+| CBCRS |    Curva Cupon Cero CD BCRP|
+| CCSDF |   Curva Cupon Cero Dólares CP|
+| CSBCRD | Curva Cupon Cero Dólares Sintetica|
+| CCINFS | Curva Cupon Cero Inflacion Soles BCRP|
+| CCCLD | Curva Cupon Cero Libor Dolares|
+| CCPEDS | Curva Cupon Cero Peru Exterior Dolares - Soberana|
+| CCPSS | Curva Cupon Cero Peru Soles Soberana|
+| CCPVS | Curva Cupon Cero Peru Vac Soberana|
+
+
+### Ejemplo
+
+```python
+import sbs_gob_pe_helper.CuponCero as cc
+
+
+inicio="2023-08-01"
+fin="2023-08-26"
+tipoCurva='CCPSS'
+
+#obtiene todos los datos de la curva de cupon cero de un determinado fecha de proceso
+df_cup_hist = cc.get_curva_cupon_cero_historico(FechaInicio=inicio,FechaFin=fin,TipoCurva=tipoCurva)
+df_cup_hist.head()
+```
+
+![cupon primeros 5 registros](references/imagenes/curva_historico.png)
+
+
+
+### pivot_curva_cupon_cero_historico
+Adicionalmente, se puede emplear la funcion `pivot_curva_cupon_cero_historico` el cual recibe como parámetro el resultado de la función `get_curva_cupon_cero_historico` para generar un pivot:
+
+```python
+import sbs_gob_pe_helper.CuponCero as cc
+
+
+df_cup_hist_pivot = cc.pivot_curva_cupon_cero_historico(df_cup_hist)
+df_cup_hist_pivot.head()
+
+```
+![cupon primeros 5 registros](references/imagenes/curva_pivot.png)
+
+
+### get_tasa_interes_por_dias
+La función `get_tasa_interes_por_dias` permite acceder a los datos de bonos cupón cero de la SBS:
 
 
 ```python
@@ -107,9 +171,9 @@ df_test.head()
 
 ## El modulo VectorPrecioRentaFija 
 
-El módulo `VectorPrecioRentaFija` permite acceder a los datos de bonos cupón cero de la SBS de una manera más alineada a Python:
 
-## sbs_gob_pe_helper.VectorPrecioRentaFija
+### get_vector_precios
+La función  `get_vector_precios` permite acceder al vector de precios de la SBS para una determinada fecha de proceso.
 
 
 | Parametro | Descripción |
@@ -131,7 +195,7 @@ El módulo `VectorPrecioRentaFija` permite acceder a los datos de bonos cupón c
 |0042| CREDISCOTIA|
 |0003| INTERBANK|
 
-*Los emisores disponibles se encuentran en la siguiente página: https://www.sbs.gob.pe/app/pu/CCID/Paginas/vp_rentafija.aspx
+*Para conocer los emisores disponibles revisar la función `get_df_emisores`.
 
 
 
@@ -208,15 +272,60 @@ df_vector.head()
 
 ![Vector de precio](references/imagenes/vector.PNG)
 
+
+
+### get_df_emisores
+La función  `get_df_emisores` permite obtener todos los emisores disponibles del vector de precios de la SBS.
+
+### Ejemplo
+```python
+
+import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
+
+#Obtiene el historico de precios del asset con isin PEP21400M064
+df_emisores = vp.get_df_emisores()
+
+df_emisores.head()
+```
+
+![df_emisores](references/imagenes/df_emisores.png)
+
+
+
+### get_precios_by_isin
+La función  `get_precios_by_isin` permite acceder a los datos históricos de precios para un determinado código ISIN.
+
+
+| Parametro | Descripción |
+| ------ | ------ |
+|isin| código isin del asset|
+
+
+### Ejemplo
+```python
+
+import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
+
+fechaProceso = '21/07/2023'
+
+#Obtiene el historico de precios del asset con isin PEP21400M064
+df_precios = vp.get_precios_by_isin("PEP21400M064")
+
+df_precios.head()
+```
+
+![precios_asset](references/imagenes/precios_asset.png)
+
+
 ---
 
 
 ## El modulo IndiceSpreadsCorporativo 
 
 
-El módulo `IndiceSpreadsCorporativo` permite acceder a los índices de spread  Índice spread corporativo de la SBS mediante Python:
 
-## sbs_gob_pe_helper.IndiceSpreadsCorporativo
+### get_indice_spreads_corporativo
+La función `get_indice_spreads_corporativo` permite acceder a los índices de spread  Índice spread corporativo de la SBS:
 
 | Parametro | Descripción |
 | ------ | ------ |
@@ -238,7 +347,6 @@ El módulo `IndiceSpreadsCorporativo` permite acceder a los índices de spread  
 ### Ejemplo
 ```python
 
-import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
 
 import sbs_gob_pe_helper.IndiceSpreadsCorporativo as isc 
 tpCurva = 'CCPSS'
@@ -248,7 +356,7 @@ fFinal = '04/08/2023'
 #Obtiene el vector de precios de instrumentos de renta fija disponibles en la SBS para una fecha de proceso específica:
 df_isc = isc.get_indice_spreads_corporativo(tipoCurva=tpCurva,fechaInicial=fInicial, fechaFinal=fFinal)
 
-df_vector.head()
+df_isc.head()
 ```
 ![IndiceSpreadsCorporativo](references/imagenes/indicecorp.png)
 

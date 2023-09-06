@@ -56,10 +56,44 @@ def get_vector_precios(fechaProceso=None,cboMoneda="",cboEmisor="",cboRating="")
 
         return df
     
+    
+def get_df_emisores():
 
-def get_precios_by_isin():
+    URL = "https://www.sbs.gob.pe/app/pu/ccid/paginas/vp_rentafija.aspx" 
 
-    URL = "https://www.sbs.gob.pe/app/pu/CCID/Paginas/vp_detalle.aspx?cod=PEP21400M064" 
+    with requests.Session() as req:
+        r = req.get(URL) 
+        soup = BeautifulSoup(r.content, 'html.parser') 
+
+        # Encuentra el elemento <select> por su etiqueta y atributos
+        select_element = soup.find('select', {'name': 'cboEmisor'})
+
+        # Inicializamos listas para almacenar los valores
+        values = []
+        text_values = []
+
+        # Recorremos las opciones dentro del elemento <select>
+        for option in select_element.find_all('option'):
+            value = option.get('value')
+            text = option.get_text()
+            if value is not None and value!="" and text.strip() != "":
+                values.append(value)
+                text_values.append(text)
+
+        # Creamos un diccionario con los datos
+        data = {'cboEmisor': values, 'Emisor': text_values}
+
+        # Creamos un DataFrame a partir del diccionario
+        df = pd.DataFrame(data)
+
+
+        return df
+    
+
+def get_precios_by_isin(isin):
+
+    #PEP21400M064
+    URL = f"https://www.sbs.gob.pe/app/pu/CCID/Paginas/vp_detalle.aspx?cod={isin}" 
 
     with requests.Session() as req:
         r = req.get(URL) 
