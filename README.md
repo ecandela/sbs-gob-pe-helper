@@ -3,6 +3,12 @@ sbs-gob-pe-helper
 
 Nota : Te recomendamos revisar la [Nota legal](docs/NotaLegal.md) antes de emplear la libreria.
 
+<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/badge/python-%203.8.2+-blue.svg?style=flat" alt="Python version"></a>
+<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/v/yfinance.svg?maxAge=60%" alt="PyPi version"></a>
+<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/status/yfinance.svg?maxAge=60" alt="PyPi status"></a>
+
+
+
 
 **sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos de mercado de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/), mediante web scraping (sbs web scraping).
 
