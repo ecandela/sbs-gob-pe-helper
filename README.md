@@ -13,7 +13,11 @@ Nota : Te recomendamos revisar la [Nota legal](docs/NotaLegal.md) antes de emple
 **sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos de mercado de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/), mediante web scraping (sbs web scraping).
 
 
-**Ojo**: Es recomendable ejecutar esta librería en un entorno local. Se ha observado que en plataformas como Google Colab puede generar conflictos.
+**Nota**: Es recomendable ejecutar esta librería en un entorno local. Se ha observado que en plataformas como Google Colab puede generar conflictos.
+
+**Informativo**: Te invito a visitar la publicación en el portal Medium titulada:
+<a target="new" href="https://medium.com/@erik.candela.rojas/acceso-eficiente-a-datos-para-la-valorizaci%C3%B3n-de-instrumentos-de-deuda-en-el-per%C3%BA-con-python-45da0e5ac45e">Acceso Eficiente a Datos para la Valorización de Instrumentos de Deuda en el Perú con Python</a>, donde se realiza una introducción detallada de la librería.
+
 
 -----------------
 ## Características 
