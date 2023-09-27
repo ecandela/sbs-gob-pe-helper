@@ -1,4 +1,4 @@
-sbs-gob-pe-helper : Extracción de datos de la Superintendencia de Banca y Seguros del Perú.
+sbs-gob-pe-helper : Scraping de datos de la Superintendencia de Banca y Seguros (SBS) del Perú .
 ==============================
 
 Nota : Te recomendamos revisar la [Nota legal](docs/NotaLegal.md) antes de emplear la libreria.
