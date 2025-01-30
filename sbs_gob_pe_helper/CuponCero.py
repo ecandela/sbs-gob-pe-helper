@@ -4,10 +4,55 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 from io import BytesIO
+from seleniumbase import SB
+import common as cm
 
 def get_curva_cupon_cero_historico(FechaInicio=None,FechaFin=None,TipoCurva=False):
 
-    URL = "https://www.sbs.gob.pe/app/pp/n_CurvaSoberana/ExportarListadoHistoricoCurvaSoberana" 
+    with SB(uc=True, test=True, locale_code="en", headless=False) as sb:
+            # Obtener el directorio de descargas
+            downloads_path = sb.get_downloads_folder()
+        
+            file_name ="curva_historica.xlsx"
+            sb.delete_downloaded_file_if_present(file_name, browser=False)
+            
+            URL = "https://www.sbs.gob.pe/app/pp/n_CurvaSoberana/CurvaSoberana/ConsultaHistorica"
+            
+            # Abrir la URL con desconexión controlada
+            sb.uc_open_with_disconnect(URL, 2.2)
+            
+            # Simular presionar la tecla Tab y luego Espacio
+            sb.uc_gui_press_key("\t")
+            sb.uc_gui_press_key(" ")
+            
+            # Reconectar después de una pausa
+            sb.reconnect(2.2)
+            
+            # Seleccionar opciones y llenar fechas
+            sb.select_option_by_value("#cboFiltroTipoCurva", TipoCurva)
+            sb.type("#txtFiltroFechaInicio", FechaInicio)
+            sb.type("#txtFiltroFechaFin", FechaFin)
+            
+            # Hacer clic para iniciar la descarga
+            sb.click("#btnBuscarInformacionHistorica")
+            
+            # Esperar y buscar el nuevo archivo
+            sb.assert_downloaded_file(file_name, timeout=None, browser=False)
+            if sb.is_downloaded_file_present(file_name, browser=False):
+            
+                path_file = sb.get_path_of_downloaded_file(file_name,  browser=False) 
+
+    df = pd.read_excel(path_file,engine='openpyxl')  
+    df_nuevo = df.iloc[1:].reset_index(drop=True)
+    df_nuevo.columns = df.iloc[0] 
+    return df_nuevo
+
+''' 
+def get_curva_cupon_cero_historico(FechaInicio=None,FechaFin=None,TipoCurva=False):
+
+    #URL = "https://www.sbs.gob.pe/app/pp/n_CurvaSoberana/ExportarListadoHistoricoCurvaSoberana" 
+    URL = "https://www.sbs.gob.pe/app/pp/n_CurvaSoberana/CurvaSoberana/ConsultaHistorica" 
+
 
 
     data = {
@@ -30,6 +75,7 @@ def get_curva_cupon_cero_historico(FechaInicio=None,FechaFin=None,TipoCurva=Fals
 
         return df_nuevo
     
+'''
 
 def pivot_curva_cupon_cero_historico(df):
 
@@ -60,7 +106,7 @@ def pivot_curva_cupon_cero_historico(df):
 def get_curva_cupon_cero(tipoCurva=None,fechaProceso=None,tramoCorto=False):
 
     URL = "https://www.sbs.gob.pe/app/pu/CCID/Paginas/cc_unacurva.aspx" 
-        
+    '''   
     with requests.Session() as req:
         r = req.get(URL) 
         soup = BeautifulSoup(r.content, 'html.parser') 
@@ -107,36 +153,65 @@ def get_curva_cupon_cero(tipoCurva=None,fechaProceso=None,tramoCorto=False):
             data["chkTramoCorto"] = "on"
 
         r = req.post(URL, data=data)
-        soup_post_result = BeautifulSoup(r.content, 'html.parser')
+        '''  
 
-        tablaCab = soup_post_result.find('table', {'id': 'tablaDetalle'})
+    with SB(uc=True, test=True, locale_code="en", headless=False) as sb:
+        URL = "https://www.sbs.gob.pe/app/pu/CCID/Paginas/cc_unacurva.aspx" 
+        # Abrir la URL con desconexión controlada
+        sb.uc_open_with_disconnect(URL, 2.2)
+        
+        # Simular presionar la tecla Tab y luego Espacio
+        sb.uc_gui_press_key("\t")
+        sb.uc_gui_press_key(" ")
+        
+        # Reconectar después de una pausa
+        sb.reconnect(2.2)
+        sb.select_option_by_value('select[name="cboTipoCurva"]', tipoCurva)
+        sb.select_option_by_value('select[name="cboFechas"]', fechaProceso)
 
-        thead = tablaCab.find('thead')    
-        lista_columnas = []
+        # Interactuar con el checkbox según el parámetro
+        checkbox_selector = '[name="chkTramoCorto"]'  # Cambia "checkboxName" al atributo `name` real del checkbox
+        is_checked = sb.is_selected(checkbox_selector)
+        
+        if tramoCorto and not is_checked:
+            sb.click(checkbox_selector)  # Marcar el checkbox si no está marcado
+        elif not tramoCorto and is_checked:
+            sb.click(checkbox_selector)  # Desmarcar el checkbox si está marcado
+        
+        sb.click('[name="btnConsultar"]') 
+        # Obtener el código HTML de la página
+        html_content = sb.get_page_source()
 
-        for fila in thead.find_all('tr'):
-            celdas = fila.find_all('th',{'class':'APLI_cabeceraTabla2'})
-            datos_columna = [celda.text.strip() for celda in celdas]
-            if len(datos_columna)>0:
-                lista_columnas = datos_columna
+    soup_post_result = BeautifulSoup(html_content, 'html.parser')
 
-        tablaCuerpo = soup_post_result.find('table', {'id': 'tablaCuerpo'})
-        tbody = tablaCuerpo.find('tbody')
-        datos_tabla = []
-        # Iterar sobre las filas de la tabla
-        for fila in tbody.find_all('tr'):
-            # Obtener los datos de cada celda en la fila
-            celdas = fila.find_all('td')
-            datos_fila = [celda.text.strip() for celda in celdas]    
-            datos_tabla.append(datos_fila)  
+    tablaCab = soup_post_result.find('table', {'id': 'tablaDetalle'})
+
+    thead = tablaCab.find('thead')    
+    lista_columnas = []
+
+    for fila in thead.find_all('tr'):
+        celdas = fila.find_all('th',{'class':'APLI_cabeceraTabla2'})
+        datos_columna = [celda.text.strip() for celda in celdas]
+        if len(datos_columna)>0:
+            lista_columnas = datos_columna
+
+    tablaCuerpo = soup_post_result.find('table', {'id': 'tablaCuerpo'})
+    tbody = tablaCuerpo.find('tbody')
+    datos_tabla = []
+    # Iterar sobre las filas de la tabla
+    for fila in tbody.find_all('tr'):
+        # Obtener los datos de cada celda en la fila
+        celdas = fila.find_all('td')
+        datos_fila = [celda.text.strip() for celda in celdas]    
+        datos_tabla.append(datos_fila)  
 
 
-        df = pd.DataFrame(datos_tabla, columns=lista_columnas)
+    df = pd.DataFrame(datos_tabla, columns=lista_columnas)
 
-        df['Tasas (%)'] = pd.to_numeric(df['Tasas (%)'], errors='coerce')
-        df['Periodo (días)'] = pd.to_numeric(df['Periodo (días)'], errors='coerce')
+    df['Tasas (%)'] = pd.to_numeric(df['Tasas (%)'], errors='coerce')
+    df['Periodo (días)'] = pd.to_numeric(df['Periodo (días)'], errors='coerce')
 
-        return df    
+    return df    
 
 
 def plot_curva(df):

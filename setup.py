@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 from sys import version_info
 
-VERSION = "0.0.6"
+VERSION = "0.0.7"
 CURR_PATH = "{}{}".format(path.abspath(path.dirname(__file__)), '/')
 
 
@@ -105,11 +105,11 @@ setup(
         VERSION),
     keywords=['sbs-gob-pe-helper','paquete','package','sbs web scraping','curva cupon cero','Vector Precio Renta Fija','Indice Spreads Corporativo'],
     install_requires=[
-        'pandas>=1.2.2',
-        'numpy>=1.19.2', 
+        'pandas>=1.5.3',
+        'numpy>=1.24.4', 
         'pyxlsb>=1.0.9',
-        'openpyxl>=3.0.6',
-        'beautifulsoup4>=4.12.2',  
+        'openpyxl>=3.0.7',
+        'beautifulsoup4>=4.12.3',  
     ],
     setup_requires=['requests','pandas','seaborn','numpy'],
     tests_require=[
