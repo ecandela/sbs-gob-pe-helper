@@ -5,7 +5,8 @@ import numpy as np
 import plotly.graph_objects as go
 from io import BytesIO
 from seleniumbase import SB
-import common as cm
+
+from sbs_gob_pe_helper import common as cm
 
 def get_curva_cupon_cero_historico(FechaInicio=None,FechaFin=None,TipoCurva=False):
 
@@ -41,11 +42,14 @@ def get_curva_cupon_cero_historico(FechaInicio=None,FechaFin=None,TipoCurva=Fals
             if sb.is_downloaded_file_present(file_name, browser=False):
             
                 path_file = sb.get_path_of_downloaded_file(file_name,  browser=False) 
-
-    df = pd.read_excel(path_file,engine='openpyxl')  
-    df_nuevo = df.iloc[1:].reset_index(drop=True)
-    df_nuevo.columns = df.iloc[0] 
-    return df_nuevo
+                df = pd.read_excel(path_file,engine='openpyxl')  
+                df_nuevo = df.iloc[1:].reset_index(drop=True)
+                df_nuevo.columns = df.iloc[0] 
+                return df_nuevo
+            else:
+                raise Exception("No se pudo descargar curva_historica.xlsx.")
+            
+          
 
 ''' 
 def get_curva_cupon_cero_historico(FechaInicio=None,FechaFin=None,TipoCurva=False):

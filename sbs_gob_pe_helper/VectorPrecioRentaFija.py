@@ -7,7 +7,7 @@ from seleniumbase import SB
 from seleniumbase import Driver
 import os
 
-import common as cm
+from sbs_gob_pe_helper import common as cm
 
 def get_vector_precios(fechaProceso=None,cboMoneda="",cboEmisor="",cboRating=""):
 

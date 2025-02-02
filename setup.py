@@ -9,11 +9,8 @@ from setuptools import setup, find_packages
 
 from sys import version_info
 
-VERSION = "0.0.7"
+VERSION = "0.0.8"
 CURR_PATH = "{}{}".format(path.abspath(path.dirname(__file__)), '/')
-
-
-
 
 def path_format(file_path=None, file_name=None, is_abspath=False,
                 ignore_raises=False):
@@ -109,7 +106,12 @@ setup(
         'numpy>=1.24.4', 
         'pyxlsb>=1.0.9',
         'openpyxl>=3.0.7',
+        'nbformat>=5.8.0',
         'beautifulsoup4>=4.12.3',  
+        'seleniumbase>=4.34.3',
+        'pyautogui>=0.9.54'
+
+ 
     ],
     setup_requires=['requests','pandas','seaborn','numpy'],
     tests_require=[

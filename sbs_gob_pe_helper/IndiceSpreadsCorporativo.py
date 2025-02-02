@@ -5,7 +5,8 @@ import json
 import pandas as pd 
 from bs4 import BeautifulSoup 
 from seleniumbase import SB
-import common as cm
+
+from sbs_gob_pe_helper import common as cm
 
 def get_indice_spreads_corporativo(tipoCurva="",fechaInicial="", fechaFinal=""):
 
@@ -49,9 +50,12 @@ def get_indice_spreads_corporativo(tipoCurva="",fechaInicial="", fechaFinal=""):
         if celdas:  # Solo procesar filas con datos
             data.append([celda.get_text(strip=True) for celda in celdas])
 
+    
     # Crear un DataFrame con los datos, usando los nombres de las columnas obtenidos
     df = pd.DataFrame(data, columns=column_names)
-
+    df['Indice de Spread'] = pd.to_numeric(df['Indice de Spread']) 
+    df['Sec.'] = pd.to_numeric(df['Sec.']) 
+    
     return df
 
 ''' 
