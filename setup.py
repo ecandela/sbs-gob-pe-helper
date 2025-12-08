@@ -104,20 +104,18 @@ setup(
    
     install_requires=[
         'pandas>=1.5.3',
-        'numpy>=1.24.4',
-        'yfinance>=0.2.27',
+        'numpy>=1.24.4',      
         'plotly>=5.15.0',
         'beautifulsoup4>=4.12.3',
         'tabula-py>=2.7.0',
-        'seleniumbase>=4.34.3',
-        'playwright',
-        'pyautogui>=0.9.54',
+        'seleniumbase>=4.34.3',        
         'PyYAML',
         'pyarrow',
         'openpyxl>=3.0.7',
-        'pyxlsb>=1.0.9',
-        'boto3>=1.34.0',
-        'xlrd>=2.0.1'
+        'pyxlsb>=1.0.9',  
+        'xlrd>=2.0.1',
+        'lxml>=4.9.0',    # Motor C++ muy rápido (Recomendado)
+        'html5lib>=1.1'   # Motor Python puro (El que te pidió el error)
     ],
     setup_requires=[],
     tests_require=[
