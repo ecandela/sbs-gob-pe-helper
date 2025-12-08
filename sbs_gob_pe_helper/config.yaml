@@ -1,0 +1,23 @@
+curva_historica:
+  CCPEDS: "05/12/2025"
+  CCPSS: "05/12/2025"
+  CCPVS: "05/12/2025"
+  CSBCRD: "05/12/2025"
+  CCCLD: "05/12/2025"
+  CBCRS: "05/12/2025"
+  CCSDF: "05/12/2025"
+  CBCRPS: "05/12/2025"
+  CCINFS: "05/12/2025"
+
+
+indice_spreads_corporativos:
+  CCCLD: "10/10/2025"
+  CCPSS: "05/12/2025"
+  CCPVS: "05/12/2025"
+  CSBCRD: "05/12/2025"
+
+vp_rentafija:
+  rf: "05/12/2025"
+
+
+  

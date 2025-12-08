@@ -2,10 +2,12 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+*.parquet
+*.lock
 # C extensions
 *.so
-
+*.txt
+*.html
 # Distribution / packaging
 .Python
 build/

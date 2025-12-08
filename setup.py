@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 from sys import version_info
 
-VERSION = "0.0.8"
+VERSION = "0.0.9"
 CURR_PATH = "{}{}".format(path.abspath(path.dirname(__file__)), '/')
 
 def path_format(file_path=None, file_name=None, is_abspath=False,
@@ -97,23 +97,29 @@ setup(
     long_description_content_type='text/markdown',
     author='Erik Carl Candela Rojas',
     author_email='erik.candela.rojas@gmail.com',
-    
+    python_requires='>=3.8',  # <--- NUEVO
     download_url='https://URL_PAQUETE/sbs-gob-pe-helper/-/archive/master/sbs-gob-pe-helper-master.tar'.format(
         VERSION),
     keywords=['sbs-gob-pe-helper','paquete','package','sbs web scraping','curva cupon cero','Vector Precio Renta Fija','Indice Spreads Corporativo'],
+   
     install_requires=[
         'pandas>=1.5.3',
-        'numpy>=1.24.4', 
-        'pyxlsb>=1.0.9',
-        'openpyxl>=3.0.7',
-        'nbformat>=5.8.0',
-        'beautifulsoup4>=4.12.3',  
+        'numpy>=1.24.4',
+        'yfinance>=0.2.27',
+        'plotly>=5.15.0',
+        'beautifulsoup4>=4.12.3',
+        'tabula-py>=2.7.0',
         'seleniumbase>=4.34.3',
-        'pyautogui>=0.9.54'
-
- 
+        'playwright',
+        'pyautogui>=0.9.54',
+        'PyYAML',
+        'pyarrow',
+        'openpyxl>=3.0.7',
+        'pyxlsb>=1.0.9',
+        'boto3>=1.34.0',
+        'xlrd>=2.0.1'
     ],
-    setup_requires=['requests','pandas','seaborn','numpy'],
+    setup_requires=[],
     tests_require=[
         'pytest',
         'pytest-cov',
@@ -127,6 +133,6 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8', # <--- ACTUALIZADO
     ],
 )
