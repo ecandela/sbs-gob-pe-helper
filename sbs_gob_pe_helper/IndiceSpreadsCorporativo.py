@@ -1,13 +1,4 @@
-
-
-import requests
-import json
 import pandas as pd 
-from bs4 import BeautifulSoup 
-from seleniumbase import SB
-
-from sbs_gob_pe_helper import common as cm
-
 
 def get_indice_spreads_corporativo(tipoCurva="",fechaInicio="", fechaFin=""):
     #https://www.sbs.gob.pe/app/pp/Spreads/Spreads_Consulta.asp

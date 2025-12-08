@@ -1,17 +1,8 @@
-import requests 
 from bs4 import BeautifulSoup 
-import pandas as pd 
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from seleniumbase import SB
-from seleniumbase import Driver
-import os
-
-from sbs_gob_pe_helper import common as cm
-
 import pandas as pd
 
-import pandas as pd
+
 
 def get_vector_precios(fechaProceso=None, cboMoneda=None, cboEmisor=None, cboRating=None):
     """
@@ -230,20 +221,6 @@ def get_vector_precios(fechaProceso=None,cboMoneda="",cboEmisor="",cboRating="")
 '''
 
 
-def get_html_webdriver(url):
-    # Configurar un perfil persistente de Chrome
-    chrome_options = Options()
-    # Iniciar el navegador con el perfil persistente
-    driver = webdriver.Chrome(options=chrome_options)
-
-    # Navegar a las páginas
-    try:
-        driver.get(url)    
-        html_content = driver.page_source  # Obtener el contenido HTML de la página     
-    finally:
-        driver.quit()
-
-        return html_content
     
 def get_html_seleniumbase(url):
 
