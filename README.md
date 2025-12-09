@@ -1,23 +1,22 @@
-sbs-gob-pe-helper : Web Scraping de datos de la Superintendencia de Banca y Seguros (SBS) del Perú .
+
+# sbs-gob-pe-helper: Cliente de datos del Mercado de Valores y Seguros (SBS)
 ==============================
 
-Nota : Te recomendamos revisar la [Nota legal](docs/NotaLegal.md) antes de emplear la libreria.
+> ⚠️ **Aviso:** Esta es una librería de código abierto **NO OFICIAL**. Su desarrollo es independiente y no tiene vinculación con la Superintendencia de Banca, Seguros y AFP. Te recomendamos revisar la [Nota legal y Exención de Responsabilidad](docs/NotaLegal.md) antes de su uso.
 
 <a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/badge/python-%203.8.2+-blue.svg?style=flat" alt="Python version"></a>
-<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/v/yfinance.svg?maxAge=60%" alt="PyPi version"></a>
-<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/status/yfinance.svg?maxAge=60" alt="PyPi status"></a>
+<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/v/sbs-gob-pe-helper.svg?maxAge=60%" alt="PyPi version"></a>
+<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/status/sbs-gob-pe-helper.svg?maxAge=60" alt="PyPi status"></a>
 
+**sbs-gob-pe-helper** ofrece una interfaz *Pythonica* para acceder a datos históricos y vigentes (Curvas Cupón Cero, Vectores de Precios, Spreads) originados en la información pública de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/).
 
+Esta librería facilita el acceso a la información mediante el consumo de datos estructurados, garantizando mayor estabilidad y rapidez al evitar la dependencia de *web scraping* en tiempo real sobre el portal gubernamental.
 
+*El nombre del paquete es utilizado con fines descriptivos y de referencia a la fuente de datos (Uso Justo Nominativo).*
 
-**sbs-gob-pe-helper** ofrece una forma Pythonica de descargar datos de mercado de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/), mediante web scraping (sbs web scraping).
-
-
-**Nota**: Es recomendable ejecutar esta librería en un entorno local. Se ha observado que en plataformas como Google Colab puede generar conflictos.
-
-**Informativo**: Te invito a visitar la publicación en el portal Medium titulada:
-<a target="new" href="https://medium.com/@erik.candela.rojas/acceso-eficiente-a-datos-para-la-valorizaci%C3%B3n-de-instrumentos-de-deuda-en-el-per%C3%BA-con-python-45da0e5ac45e">Acceso Eficiente a Datos para la Valorización de Instrumentos de Deuda en el Perú con Python</a>, donde se realiza una introducción detallada de la librería.
-
+**Recursos Adicionales**:
+Para una introducción detallada y casos de uso financiero, te recomendamos leer el artículo:
+<a target="new" href="https://medium.com/@erik.candela.rojas/acceso-eficiente-a-datos-para-la-valorizaci%C3%B3n-de-instrumentos-de-deuda-en-el-per%C3%BA-con-python-45da0e5ac45e">Acceso Eficiente a Datos para la Valorización de Instrumentos de Deuda en el Perú con Python</a>.
 
 -----------------
 ## Características 
@@ -35,6 +34,7 @@ A continuación se encuentran las características que aborda este paquete.
 
 ---  
 
+
 ## Instalación
 
 Instala `sbs-gob-pe-helper` usando `pip`:
@@ -45,42 +45,57 @@ $ pip install sbs-gob-pe-helper
 
 ---
 
+
 # Quick Start
 
-## El modulo CuponCero 
+## 📦 Módulo CuponCero
 
+Puedes ver un ejemplo práctico en el siguiente notebook:
+[📄 Ver Demo en GitHub](https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Cupon_cero.ipynb)
 
-### get_curva_cupon_cero
-La función `get_curva_cupon_cero` permite acceder a los datos de cupón cero de la SBS por tipo de curva y fecha de procesamiento:
+### `get_curva_cupon_cero`
 
+Esta función permite acceder a los datos de cupón cero de la SBS filtrando por tipo de curva y fecha de procesamiento.
 
-| Parametro | Descripción |
-| ------ | ------ |
-|fechaProceso| Fecha de procesamiento|
-|tipoCurva| Tipo de curva|
+**Parámetros**
 
-| tipoCurva | Descripciòn |
-| ------ | ------ |
-| CBCRS |    Curva Cupon Cero CD BCRP|
-| CCSDF |   Curva Cupon Cero Dólares CP|
-| CSBCRD | Curva Cupon Cero Dólares Sintetica|
-| CCINFS | Curva Cupon Cero Inflacion Soles BCRP|
-| CCCLD | Curva Cupon Cero Libor Dolares|
-| CCPEDS | Curva Cupon Cero Peru Exterior Dolares - Soberana|
-| CCPSS | Curva Cupon Cero Peru Soles Soberana|
-| CCPVS | Curva Cupon Cero Peru Vac Soberana|
+| Parámetro | Tipo | Descripción | Formato / Ejemplo |
+| :--- | :---: | :--- | :--- |
+| `fechaProceso` | `str` | Fecha de procesamiento de los datos. | `"dd/mm/yyyy"` |
+| `tipoCurva` | `str` | Código del tipo de curva deseada. | Ver tabla inferior |
 
+**Tipos de Curva (`tipoCurva`)**
 
-### Ejemplo
+| Código | Descripción |
+| :--- | :--- |
+| **CBCRS** | Curva Cupón Cero CD BCRP |
+| **CCSDF** | Curva Cupón Cero Dólares CP |
+| **CSBCRD** | Curva Cupón Cero Dólares Sintética |
+| **CCINFS** | Curva Cupón Cero Inflación Soles BCRP |
+| **CCCLD** | Curva Cupón Cero Libor Dólares |
+| **CCPEDS** | Curva Cupón Cero Perú Exterior Dólares - Soberana |
+| **CCPSS** | Curva Cupón Cero Perú Soles Soberana |
+| **CCPVS** | Curva Cupón Cero Perú Vac Soberana |
+
+### 💻 Ejemplo de uso
 
 ```python
 import sbs_gob_pe_helper.CuponCero as cc
 
+# Configuración de la carpeta de caché (Usa raw strings 'r' para rutas en Windows)
+cc.config.CACHE_DIR = r"E:\cache_temp" 
+
+# Parámetros de consulta
 tp_curva = 'CCPSS'
 fec_proceso = '31/07/2023'
 
-#obtiene todos los datos de la curva de cupon cero de un determinado fecha de proceso
-df_cup= cc.get_curva_cupon_cero(tipoCurva=tp_curva, fechaProceso=fec_proceso)
+# Obtiene los datos de la curva de cupón cero para la fecha indicada
+df_cup = cc.get_curva_cupon_cero(
+    tipoCurva=tp_curva, 
+    fechaProceso=fec_proceso
+)
+
+# Visualizar los primeros registros
 df_cup.head()
 ```
 
@@ -97,45 +112,53 @@ cc.plot_curva(df_cup)
 
 ![Abrir Terminal](references/imagenes/curva_c0.png)
 
+### `get_curva_cupon_cero_historico`
 
+La función `get_curva_cupon_cero_historico` permite extraer los datos de cupón cero de la SBS para un rango de fechas específico y un tipo de curva determinado.
 
+**Parámetros**
 
-### get_curva_cupon_cero_historico
-La función `get_curva_cupon_cero_historico` permite acceder a los datos de cupón cero de la SBS a partir de un rango de fechas de procesamiento y tipo de curva:
+| Parámetro | Tipo | Descripción | Formato / Ejemplo |
+| :--- | :---: | :--- | :--- |
+| `fechaInicio` | `str` | Fecha de inicio del rango de consulta. | `"YYYY-MM-DD"` |
+| `fechaFin` | `str` | Fecha de fin del rango de consulta. | `"YYYY-MM-DD"` |
+| `tipoCurva` | `str` | Código del tipo de curva deseada. | Ver tabla inferior |
 
+**Tipos de Curva (`tipoCurva`)**
 
-| Parametro | Descripción |
-| ------ | ------ |
-|FechaInicio| Fecha de procesamiento|
-|FechaFin| Tipo de curva|
-|TipoCurva| Tipo de curva|
+| Código | Descripción |
+| :--- | :--- |
+| **CBCRS** | Curva Cupón Cero CD BCRP |
+| **CCSDF** | Curva Cupón Cero Dólares CP |
+| **CSBCRD** | Curva Cupón Cero Dólares Sintética |
+| **CCINFS** | Curva Cupón Cero Inflación Soles BCRP |
+| **CCCLD** | Curva Cupón Cero Libor Dólares |
+| **CCPEDS** | Curva Cupón Cero Perú Exterior Dólares - Soberana |
+| **CCPSS** | Curva Cupón Cero Perú Soles Soberana |
+| **CCPVS** | Curva Cupón Cero Perú Vac Soberana |
 
-| tipoCurva | Descripciòn |
-| ------ | ------ |
-| CBCRS |    Curva Cupon Cero CD BCRP|
-| CCSDF |   Curva Cupon Cero Dólares CP|
-| CSBCRD | Curva Cupon Cero Dólares Sintetica|
-| CCINFS | Curva Cupon Cero Inflacion Soles BCRP|
-| CCCLD | Curva Cupon Cero Libor Dolares|
-| CCPEDS | Curva Cupon Cero Peru Exterior Dolares - Soberana|
-| CCPSS | Curva Cupon Cero Peru Soles Soberana|
-| CCPVS | Curva Cupon Cero Peru Vac Soberana|
-
-
-### Ejemplo
+### 💻 Ejemplo de uso
 
 ```python
 import sbs_gob_pe_helper.CuponCero as cc
 
+# Parámetros para la consulta histórica
+fecha_inicio = "2023-08-01"
+fecha_fin = "2023-08-26"
+tp_curva = 'CCPSS'
 
-inicio="2023-08-01"
-fin="2023-08-26"
-tipoCurva='CCPSS'
+# Obtiene los datos históricos de la curva de cupón cero
+df_cup_hist = cc.get_curva_cupon_cero_historico(
+    fechaInicio=fecha_inicio,
+    fechaFin=fecha_fin,
+    tipoCurva=tp_curva
+)
 
-#obtiene todos los datos de la curva de cupon cero de un determinado fecha de proceso
-df_cup_hist = cc.get_curva_cupon_cero_historico(FechaInicio=inicio,FechaFin=fin,TipoCurva=tipoCurva)
-df_cup_hist.head()
+# Visualizar los primeros registros
+print(df_cup_hist.head())
 ```
+
+
 
 ![cupon primeros 5 registros](references/imagenes/curva_historico.png)
 
@@ -155,32 +178,43 @@ df_cup_hist_pivot.head()
 ![cupon primeros 5 registros](references/imagenes/curva_pivot.png)
 
 
-### get_tasa_interes_por_dias
-La función `get_tasa_interes_por_dias` permite acceder interpolación lineal de las tasas de interés de plazos no disponible en las curvas de cupón cero de la SBS :
+### `get_tasa_interes_por_dias`
 
+La función `get_tasa_interes_por_dias` permite calcular, mediante **interpolación lineal**, las tasas de interés para plazos (días) que no se encuentran disponibles explícitamente en la curva de cupón cero de la SBS.
+
+Es ideal para obtener tasas ajustadas a plazos específicos (ej. 45 días) cuando la curva solo ofrece puntos estándar (ej. 30 y 60 días).
+
+### 💻 Ejemplo de uso
 
 ```python
+import pandas as pd
+import sbs_gob_pe_helper.CuponCero as cc
 
-#Si buscas obtener tasas para plazos no presentes en los datos de cupón cero, se llevará a cabo una interpolación utilizando los valores de plazos ya existentes.
-
-# En el siguiente ejemplo, se calcularán las tasas correspondientes para los períodos de 30, 60 y 120.
+# 1. Definimos los plazos (días) para los cuales queremos calcular la tasa.
+# En este ejemplo, buscamos tasas para 0, 30, 60, 90 y 120 días.
 data = {
-    "dias": [0, 30, 60 , 90 , 120],    
+    "dias": [0, 30, 60, 90, 120],    
 }
 
 df_test = pd.DataFrame(data)
 
+# 2. Aplicamos la interpolación.
+# Nota: 'df_cup' es el DataFrame obtenido previamente con get_curva_cupon_cero.
+# Se pasa como argumento adicional para realizar el cálculo.
+df_test['tasas'] = df_test['dias'].apply(
+    cc.get_tasa_interes_por_dias, 
+    args=(df_cup,)
+)
 
-df_test['tasas'] = df_test['dias'].apply(cc.get_tasa_interes_por_dias, args=(df_cup,))
-
-df_test.head()
-
+# 3. Visualizar los resultados con las tasas interpoladas
+print(df_test.head())
 ```
+
 
 ![Resultado de interpolación](references/imagenes/interpol.png)
 
 ## El modulo VectorPrecioRentaFija 
-
+https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Vector%20de%20Precios%20de%20Renta%20fija.ipynb
 
 ### get_vector_precios
 La función  `get_vector_precios` permite acceder al vector de precios de la SBS para una determinada fecha de proceso.
@@ -239,7 +273,7 @@ La función  `get_vector_precios` permite acceder al vector de precios de la SBS
 
 import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
 
-fechaProceso = '21/07/2023'
+fechaProceso = '05/12/2025'
 
 #Obtiene el vector de precios de instrumentos de renta fija disponibles en la SBS para una fecha de proceso específica:
 df_vector = vp.get_vector_precios(fechaProceso=fechaProceso)
@@ -316,7 +350,6 @@ La función  `get_precios_by_isin` permite acceder a los datos históricos de pr
 
 import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
 
-fechaProceso = '21/07/2023'
 
 #Obtiene el historico de precios del asset con isin PEP21400M064
 df_precios = vp.get_precios_by_isin("PEP21400M064")
@@ -328,50 +361,66 @@ df_precios.head()
 
 
 ---
+## 📦 Módulo IndiceSpreadsCorporativo
 
+Puedes ver un ejemplo práctico en el siguiente notebook:
+[📄 Ver Demo en GitHub](https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Indices%20de%20Spreads%20Corporativo.ipynb)
 
-## El modulo IndiceSpreadsCorporativo 
+### `get_indice_spreads_corporativo`
 
+La función `get_indice_spreads_corporativo` permite acceder a los índices de spread corporativo de la SBS.
 
+**Parámetros**
 
-### get_indice_spreads_corporativo
-La función `get_indice_spreads_corporativo` permite acceder a los índices de spread  Índice spread corporativo de la SBS:
+| Parámetro | Tipo | Descripción | Formato / Ejemplo |
+| :--- | :---: | :--- | :--- |
+| `fechaInicio` | `str` | Fecha de inicio del rango de consulta. | `"dd/mm/yyyy"` |
+| `fechaFin` | `str` | Fecha final del rango de consulta. | `"dd/mm/yyyy"` |
+| `tipoCurva` | `str` | Código del tipo de curva deseada. | Ver tabla inferior |
 
-| Parametro | Descripción |
-| ------ | ------ |
-|fechaInicial| Fecha inicial|
-|fechaFinal| Fecha final|
-|tipoCurva| Tipo de curva|
+**Tipos de Curva (`tipoCurva`)**
 
-| tipoCurva | Descripciòn |
-| ------ | ------ |
-| CBCRS |    Curva Cupon Cero CD BCRP|
-| CCSDF |   Curva Cupon Cero Dólares CP|
-| CSBCRD | Curva Cupon Cero Dólares Sintetica|
-| CCINFS | Curva Cupon Cero Inflacion Soles BCRP|
-| CCCLD | Curva Cupon Cero Libor Dolares|
-| CCPEDS | Curva Cupon Cero Peru Exterior Dolares - Soberana|
-| CCPSS | Curva Cupon Cero Peru Soles Soberana|
-| CCPVS | Curva Cupon Cero Peru Vac Soberana|
+| Código | Descripción |
+| :--- | :--- |
+| **CBCRS** | Curva Cupón Cero CD BCRP |
+| **CCSDF** | Curva Cupón Cero Dólares CP |
+| **CSBCRD** | Curva Cupón Cero Dólares Sintética |
+| **CCINFS** | Curva Cupón Cero Inflación Soles BCRP |
+| **CCCLD** | Curva Cupón Cero Libor Dólares |
+| **CCPEDS** | Curva Cupón Cero Perú Exterior Dólares - Soberana |
+| **CCPSS** | Curva Cupón Cero Perú Soles Soberana |
+| **CCPVS** | Curva Cupón Cero Perú Vac Soberana |
 
-### Ejemplo
+### 💻 Ejemplo de uso
+
 ```python
-
-
 import sbs_gob_pe_helper.IndiceSpreadsCorporativo as isc 
-tpCurva = 'CCPSS'
-fInicial = '04/08/2023'
-fFinal = '04/08/2023'
 
-#Obtiene el vector de precios de instrumentos de renta fija disponibles en la SBS para una fecha de proceso específica:
-df_isc = isc.get_indice_spreads_corporativo(tipoCurva=tpCurva,fechaInicial=fInicial, fechaFinal=fFinal)
+# Parámetros de consulta
+tp_curva = 'CCPSS'
+fecha_inicio = '04/08/2023'
+fecha_fin = '04/08/2023'
 
+# Obtiene los índices de spread corporativo de la SBS para el rango específico
+df_isc = isc.get_indice_spreads_corporativo(
+    tipoCurva=tp_curva,
+    fechaInicio=fecha_inicio, 
+    fechaFin=fecha_fin
+)
+
+# Visualizar los primeros registros
 df_isc.head()
 ```
+
 ![IndiceSpreadsCorporativo](references/imagenes/indicecorp.png)
 
 
 ---
+
+## 💰 Valorización de Bonos
+
+Puedes ver un ejemplo práctico en el siguiente notebook:
+[📄 Ver Demo en GitHub](https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Valorizacion%20de%20Bonos.ipynb)
 
 ## Feedback
 
