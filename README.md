@@ -1,14 +1,14 @@
 
-# sbs-gob-pe-helper: Cliente de datos del Mercado de Valores y Seguros (SBS)
+# pysbs-peru: Cliente de datos del Mercado de Valores y Seguros (SBS)
 ==============================
 
 > ⚠️ **Aviso:** Esta es una librería de código abierto **NO OFICIAL**. Su desarrollo es independiente y no tiene vinculación con la Superintendencia de Banca, Seguros y AFP. Te recomendamos revisar la [Nota legal y Exención de Responsabilidad](docs/NotaLegal.md) antes de su uso.
 
-<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/badge/python-%203.8.2+-blue.svg?style=flat" alt="Python version"></a>
-<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/v/sbs-gob-pe-helper.svg?maxAge=60%" alt="PyPi version"></a>
-<a target="new" href="https://pypi.org/project/sbs-gob-pe-helper/"><img border=0 src="https://img.shields.io/pypi/status/sbs-gob-pe-helper.svg?maxAge=60" alt="PyPi status"></a>
+<a target="new" href="https://pypi.org/project/pysbs-peru/"><img border=0 src="https://img.shields.io/badge/python-%203.8.2+-blue.svg?style=flat" alt="Python version"></a>
+<a target="new" href="https://pypi.org/project/pysbs-peru/"><img border=0 src="https://img.shields.io/pypi/v/pysbs-peru.svg?maxAge=60%" alt="PyPi version"></a>
+<a target="new" href="https://pypi.org/project/pysbs-peru/"><img border=0 src="https://img.shields.io/pypi/status/pysbs-peru.svg?maxAge=60" alt="PyPi status"></a>
 
-**sbs-gob-pe-helper** ofrece una interfaz *Pythonica* para acceder a datos históricos y vigentes (Curvas Cupón Cero, Vectores de Precios, Spreads) originados en la información pública de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/).
+**pysbs-peru** ofrece una interfaz *Pythonica* para acceder a datos históricos y vigentes (Curvas Cupón Cero, Vectores de Precios, Spreads) originados en la información pública de la [Superintendencia de Banca y Seguros del Perú](https://www.sbs.gob.pe/).
 
 Esta librería facilita el acceso a la información mediante el consumo de datos estructurados, garantizando mayor estabilidad y rapidez al evitar la dependencia de *web scraping* en tiempo real sobre el portal gubernamental.
 
@@ -37,10 +37,10 @@ A continuación se encuentran las características que aborda este paquete.
 
 ## Instalación
 
-Instala `sbs-gob-pe-helper` usando `pip`:
+Instala `pysbs-peru` usando `pip`:
 
 ``` {.sourceCode .bash}
-$ pip install sbs-gob-pe-helper
+$ pip install pysbs-peru
 ```
 
 ---
@@ -51,7 +51,7 @@ $ pip install sbs-gob-pe-helper
 ## 📦 Módulo CuponCero
 
 Puedes ver un ejemplo práctico en el siguiente notebook:
-[📄 Ver Demo en GitHub](https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Cupon_cero.ipynb)
+[📄 Ver Demo en GitHub](https://github.com/ecandela/pysbs-peru/blob/main/test/Cupon_cero.ipynb)
 
 ### `get_curva_cupon_cero`
 
@@ -214,7 +214,7 @@ print(df_test.head())
 ![Resultado de interpolación](references/imagenes/interpol.png)
 
 ## El modulo VectorPrecioRentaFija 
-https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Vector%20de%20Precios%20de%20Renta%20fija.ipynb
+https://github.com/ecandela/pysbs-peru/blob/main/test/Vector%20de%20Precios%20de%20Renta%20fija.ipynb
 
 ### get_vector_precios
 La función  `get_vector_precios` permite acceder al vector de precios de la SBS para una determinada fecha de proceso.
@@ -364,7 +364,7 @@ df_precios.head()
 ## 📦 Módulo IndiceSpreadsCorporativo
 
 Puedes ver un ejemplo práctico en el siguiente notebook:
-[📄 Ver Demo en GitHub](https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Indices%20de%20Spreads%20Corporativo.ipynb)
+[📄 Ver Demo en GitHub](https://github.com/ecandela/pysbs-peru/blob/main/test/Indices%20de%20Spreads%20Corporativo.ipynb)
 
 ### `get_indice_spreads_corporativo`
 
@@ -420,11 +420,11 @@ df_isc.head()
 ## 💰 Valorización de Bonos
 
 Puedes ver un ejemplo práctico en el siguiente notebook:
-[📄 Ver Demo en GitHub](https://github.com/ecandela/sbs-gob-pe-helper/blob/main/test/Valorizacion%20de%20Bonos.ipynb)
+[📄 Ver Demo en GitHub](https://github.com/ecandela/pysbs-peru/blob/main/test/Valorizacion%20de%20Bonos.ipynb)
 
 ## Feedback
 
-La mejor manera de enviar comentarios es crear un problema en https://github.com/ecandela/sbs-gob-pe-helper/issues.
+La mejor manera de enviar comentarios es crear un problema en https://github.com/ecandela/pysbs-peru/issues.
 Si estás proponiendo una característica:
 
 - Explica detalladamente cómo funcionaría.

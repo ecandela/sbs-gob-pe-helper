@@ -49,7 +49,7 @@ def get_vector_precios(fechaProceso=None, cboMoneda=None, cboEmisor=None, cboRat
     fecha_clean = fecha_clean.replace("/", ".") 
 
     # 2. CONSTRUCCIÓN DE LA URL
-    base_url = "https://raw.githubusercontent.com/ecandela/sbs-gob-pe-helper-data/main/vp_rentafija"
+    base_url = "https://raw.githubusercontent.com/ecandela/pysbs-peru-data/main/vp_rentafija"
     nombre_archivo = f"Renta_Fija_{fecha_clean}.xls"
     url = f"{base_url}/{nombre_archivo}"
 

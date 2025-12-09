@@ -36,7 +36,7 @@ def obtener_datos_sbs():
 
 def es_cache_curva_historica_desactualizada(tipoCurva,maxima_fehca_cache_local):
     # Tu URL raw de GitHub
-    url = "https://raw.githubusercontent.com/ecandela/sbs-gob-pe-helper-data/refs/heads/main/config.yaml"
+    url = "https://raw.githubusercontent.com/ecandela/pysbs-peru-data/refs/heads/main/config.yaml"
 
     try:
         # 1. Hacemos la petición GET para obtener el contenido texto del archivo
@@ -134,7 +134,7 @@ def get_curva_cupon_cero_historico(fechaInicio=None, fechaFin=None, tipoCurva=No
             print("   -> Se procederá a descargar.")
 
     # 3. CONSTRUCCIÓN DE LA URL DINÁMICA
-    base_url = "https://raw.githubusercontent.com/ecandela/sbs-gob-pe-helper-data/main/curva_historica"
+    base_url = "https://raw.githubusercontent.com/ecandela/pysbs-peru-data/main/curva_historica"
     nombre_archivo_web = f"curva_historica_{codigo_clean}.xlsx"
     url = f"{base_url}/{nombre_archivo_web}"
 

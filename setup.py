@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 from sys import version_info
 
-VERSION = "0.0.10"
+VERSION = "0.0.1"
 CURR_PATH = "{}{}".format(path.abspath(path.dirname(__file__)), '/')
 
 def path_format(file_path=None, file_name=None, is_abspath=False,
@@ -88,19 +88,19 @@ def read(file_name=None, is_encoding=True, ignore_raises=False):
 
 
 setup(
-    name='sbs-gob-pe-helper',
+    name='pysbs-peru',
     version=VERSION,
     license=read("LICENSE", is_encoding=False, ignore_raises=True),
     packages=find_packages(),
-    description='sbs-gob-pe-helper para proyectos de análisis financiero',
+    description='pysbs-peru Cliente Python no oficial para acceder a datos financieros públicos de la SBS Perú (Curvas, Vectores, Spreads) | Market Data Perú | Finanzas',
     long_description=read("README.md"),
     long_description_content_type='text/markdown',
     author='Erik Carl Candela Rojas',
     author_email='erik.candela.rojas@gmail.com',
     python_requires='>=3.8',  # <--- NUEVO
-    download_url='https://URL_PAQUETE/sbs-gob-pe-helper/-/archive/master/sbs-gob-pe-helper-master.tar'.format(
+    download_url='https://URL_PAQUETE/pysbs-peru/-/archive/master/pysbs-peru-master.tar'.format(
         VERSION),
-    keywords=['sbs-gob-pe-helper','paquete','package','sbs web scraping','curva cupon cero','Vector Precio Renta Fija','Indice Spreads Corporativo'],
+    keywords=['pysbs-peru','paquete','package','sbs web scraping','curva cupon cero','Vector Precio Renta Fija','Indice Spreads Corporativo'],
    
     install_requires=[
         'pandas>=1.5.3',

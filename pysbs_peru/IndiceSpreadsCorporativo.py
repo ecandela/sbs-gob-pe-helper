@@ -25,7 +25,7 @@ def get_indice_spreads_corporativo(tipoCurva="",fechaInicio="", fechaFin=""):
     fecha_clean = fecha_clean.replace("/", ".") 
 
     # 2. CONSTRUCCIÓN DE LA URL
-    base_url = "https://raw.githubusercontent.com/ecandela/sbs-gob-pe-helper-data/main/indice_spreads_corporativos"
+    base_url = "https://raw.githubusercontent.com/ecandela/pysbs-peru-data/main/indice_spreads_corporativos"
     nombre_archivo = f"reporte_ISC_{tipoCurva}_{fecha_clean}.xls"
     url = f"{base_url}/{nombre_archivo}"
 
