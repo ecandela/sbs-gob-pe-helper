@@ -1,8 +1,8 @@
 
-# pysbs-peru: Cliente de datos del Mercado de Valores y Seguros (SBS)
+# pysbs-peru: Cliente Python no oficial para acceder a datos financieros públicos de la SBS Perú (Curvas, Vectores, Spreads) | Market Data Perú | Finanzas
 ==============================
 
-> ⚠️ **Aviso:** Esta es una librería de código abierto **NO OFICIAL**. Su desarrollo es independiente y no tiene vinculación con la Superintendencia de Banca, Seguros y AFP. Te recomendamos revisar la [Nota legal y Exención de Responsabilidad](docs/NotaLegal.md) antes de su uso.
+> ⚠️ **Aviso:** Esta es una librería de código abierto **NO OFICIAL**. Su desarrollo es independiente y no tiene vinculación con la Superintendencia de Banca, Seguros y AFP. Te recomendamos revisar la [Nota legal y Exención de Responsabilidad](https://github.com/ecandela/pysbs-peru/blob/main/docs/NotaLegal.md) antes de su uso.
 
 <a target="new" href="https://pypi.org/project/pysbs-peru/"><img border=0 src="https://img.shields.io/badge/python-%203.8.2+-blue.svg?style=flat" alt="Python version"></a>
 <a target="new" href="https://pypi.org/project/pysbs-peru/"><img border=0 src="https://img.shields.io/pypi/v/pysbs-peru.svg?maxAge=60%" alt="PyPi version"></a>
@@ -80,7 +80,7 @@ Esta función permite acceder a los datos de cupón cero de la SBS filtrando por
 ### 💻 Ejemplo de uso
 
 ```python
-import sbs_gob_pe_helper.CuponCero as cc
+import pysbs_peru.CuponCero as cc
 
 # Configuración de la carpeta de caché (Usa raw strings 'r' para rutas en Windows)
 cc.config.CACHE_DIR = r"E:\cache_temp" 
@@ -99,7 +99,7 @@ df_cup = cc.get_curva_cupon_cero(
 df_cup.head()
 ```
 
-![cupon primeros 5 registros](references/imagenes/cupon_head.png)
+![cupon primeros 5 registros](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/cupon_head.png)
 
 ### plot_curva
 
@@ -110,7 +110,7 @@ Si deseas visualizar la gráfica de la curva de cupón cero, sigue estos pasos:
 cc.plot_curva(df_cup)
 ```
 
-![Abrir Terminal](references/imagenes/curva_c0.png)
+![Abrir Terminal](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/curva_c0.png)
 
 ### `get_curva_cupon_cero_historico`
 
@@ -140,7 +140,7 @@ La función `get_curva_cupon_cero_historico` permite extraer los datos de cupón
 ### 💻 Ejemplo de uso
 
 ```python
-import sbs_gob_pe_helper.CuponCero as cc
+import pysbs_peru.CuponCero as cc
 
 # Parámetros para la consulta histórica
 fecha_inicio = "2023-08-01"
@@ -160,7 +160,7 @@ print(df_cup_hist.head())
 
 
 
-![cupon primeros 5 registros](references/imagenes/curva_historico.png)
+![cupon primeros 5 registros](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/curva_historico.png)
 
 
 
@@ -168,14 +168,14 @@ print(df_cup_hist.head())
 Adicionalmente, se puede emplear la funcion `pivot_curva_cupon_cero_historico` el cual recibe como parámetro el resultado de la función `get_curva_cupon_cero_historico` para generar un pivot:
 
 ```python
-import sbs_gob_pe_helper.CuponCero as cc
+import pysbs_peru.CuponCero as cc
 
 
 df_cup_hist_pivot = cc.pivot_curva_cupon_cero_historico(df_cup_hist)
 df_cup_hist_pivot.head()
 
 ```
-![cupon primeros 5 registros](references/imagenes/curva_pivot.png)
+![cupon primeros 5 registros](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/curva_pivot.png)
 
 
 ### `get_tasa_interes_por_dias`
@@ -188,7 +188,7 @@ Es ideal para obtener tasas ajustadas a plazos específicos (ej. 45 días) cuand
 
 ```python
 import pandas as pd
-import sbs_gob_pe_helper.CuponCero as cc
+import pysbs_peru.CuponCero as cc
 
 # 1. Definimos los plazos (días) para los cuales queremos calcular la tasa.
 # En este ejemplo, buscamos tasas para 0, 30, 60, 90 y 120 días.
@@ -211,10 +211,12 @@ print(df_test.head())
 ```
 
 
-![Resultado de interpolación](references/imagenes/interpol.png)
+![Resultado de interpolación](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/interpol.png)
 
 ## El modulo VectorPrecioRentaFija 
-https://github.com/ecandela/pysbs-peru/blob/main/test/Vector%20de%20Precios%20de%20Renta%20fija.ipynb
+
+Puedes ver un ejemplo práctico en el siguiente notebook:
+[📄 Ver Demo en GitHub](https://github.com/ecandela/pysbs-peru/blob/main/test/Vector%20de%20Precios%20de%20Renta%20fija.ipynb)
 
 ### get_vector_precios
 La función  `get_vector_precios` permite acceder al vector de precios de la SBS para una determinada fecha de proceso.
@@ -271,7 +273,7 @@ La función  `get_vector_precios` permite acceder al vector de precios de la SBS
 ### Ejemplo
 ```python
 
-import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
+import pysbs_peru.VectorPrecioRentaFija as vp 
 
 fechaProceso = '05/12/2025'
 
@@ -314,7 +316,7 @@ df_vector.columns.tolist()
 df_vector.head()
 ```
 
-![Vector de precio](references/imagenes/vector.PNG)
+![Vector de precio](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/vector.PNG)
 
 
 
@@ -324,7 +326,7 @@ La función  `get_df_emisores` permite obtener todos los emisores disponibles de
 ### Ejemplo
 ```python
 
-import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
+import pysbs_peru.VectorPrecioRentaFija as vp 
 
 #Obtiene el historico de precios del asset con isin PEP21400M064
 df_emisores = vp.get_df_emisores()
@@ -332,8 +334,7 @@ df_emisores = vp.get_df_emisores()
 df_emisores.head()
 ```
 
-![df_emisores](references/imagenes/df_emisores.png)
-
+![df_emisores](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/df_emisores.png)
 
 
 ### get_precios_by_isin
@@ -348,7 +349,7 @@ La función  `get_precios_by_isin` permite acceder a los datos históricos de pr
 ### Ejemplo
 ```python
 
-import sbs_gob_pe_helper.VectorPrecioRentaFija as vp 
+import pysbs_peru.VectorPrecioRentaFija as vp 
 
 
 #Obtiene el historico de precios del asset con isin PEP21400M064
@@ -357,7 +358,7 @@ df_precios = vp.get_precios_by_isin("PEP21400M064")
 df_precios.head()
 ```
 
-![precios_asset](references/imagenes/precios_asset.png)
+![precios_asset](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/precios_asset.png)
 
 
 ---
@@ -394,7 +395,7 @@ La función `get_indice_spreads_corporativo` permite acceder a los índices de s
 ### 💻 Ejemplo de uso
 
 ```python
-import sbs_gob_pe_helper.IndiceSpreadsCorporativo as isc 
+import pysbs_peru.IndiceSpreadsCorporativo as isc 
 
 # Parámetros de consulta
 tp_curva = 'CCPSS'
@@ -412,7 +413,7 @@ df_isc = isc.get_indice_spreads_corporativo(
 df_isc.head()
 ```
 
-![IndiceSpreadsCorporativo](references/imagenes/indicecorp.png)
+![IndiceSpreadsCorporativo](https://raw.githubusercontent.com/ecandela/pysbs-peru/main/references/imagenes/indicecorp.png)
 
 
 ---
