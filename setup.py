@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 from sys import version_info
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 CURR_PATH = "{}{}".format(path.abspath(path.dirname(__file__)), '/')
 
 def path_format(file_path=None, file_name=None, is_abspath=False,

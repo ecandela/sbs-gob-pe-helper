@@ -232,7 +232,7 @@ def pivot_curva_cupon_cero_historico(df):
 
 
 
-
+'''
 def get_curva_cupon_cero(tipoCurva=None, fechaProceso=None):
     #https://www.sbs.gob.pe/app/pu/CCID/Paginas/cc_unacurva.aspx
     """
@@ -252,9 +252,60 @@ def get_curva_cupon_cero(tipoCurva=None, fechaProceso=None):
         fechaInicio=fechaProceso,
         fechaFin=fechaProceso
     )
+'''
 
 
 
+def get_curva_cupon_cero(fechaProceso=None, tipoCurva=None):
+    """
+    Descarga el Vector de Precios de Renta Fija de la SBS.
+    Realiza el mapeo automático de códigos (inputs) a descripciones reales (Excel).
+    """
+    
+    # Mapeo de Rating (Imagen image_fda477.png)
+    # En este caso el código y la descripción parecen iguales, pero normalizamos por si acaso.
+    # Si el usuario manda "A " con espacio, esto ayuda a limpiar.
+    # Como la imagen muestra que el valor ES el texto, no necesitamos traducción compleja,
+    # pero sí asegurarnos que coincida exactamente.
+
+    # 1. VALIDACIÓN OBLIGATORIA DE FECHA
+    if not fechaProceso or not isinstance(fechaProceso, str):
+        raise TypeError("❌ Error: 'fechaProceso' es obligatorio y debe ser texto (formato dd/mm/yyyy).")
+    
+    if not tipoCurva or not isinstance(tipoCurva, str):
+        raise TypeError("❌ Error: 'tipoCurva' es obligatorio.")
+
+    # Limpieza de la fecha
+    fecha_clean = fechaProceso.strip()
+    fecha_clean = fecha_clean.replace("/", ".") 
+
+    # 2. CONSTRUCCIÓN DE LA URL
+
+    base_url = f"https://raw.githubusercontent.com/ecandela/pysbs-peru-data/refs/heads/main/curva/{tipoCurva}"    
+    nombre_archivo = f"SBS_Curva_{tipoCurva}_{fecha_clean}.xls"
+    url = f"{base_url}/{nombre_archivo}"
+  
+    try:
+        print(f"1. Descargando: {nombre_archivo}...")
+
+        tablas = pd.read_html(url, flavor='bs4')     
+
+        columns = tablas[0].columns
+        df = tablas[1]
+        df.columns = [col.strip() for col in columns]
+
+             
+        # --- 4. LÓGICA DE FILTRADO CON TRADUCCIÓN (MAPEO) ---
+            
+        
+        # 5. VERIFICACIÓN FINAL
+        if df.empty:
+            print("⚠️ Aviso: La consulta devolvió 0 filas. Verifique si los códigos de filtro son correctos para esta fecha.")
+            
+        return df.reset_index(drop=True)
+
+    except Exception as e:
+        raise RuntimeError(f"Error procesando el vector de precios: {str(e)}") from e
 
 
 def plot_curva(df):
